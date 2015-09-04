@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Json</title>
+    <script>
+    function cargaBtn(archivo){
+        var xmhttp = new XMLHttpRequest();
+        var  url = archivo+".json";
+        console.log(url);
+        xmhttp.open("GET", url,true);
+        xmhttp.send();
+        xmhttp.onreadystatechange = function(){
+            if(xmhttp.readyState == 4 && xmhttp.status == 200){
+                infor =  JSON.parse(xmhttp.responseText);
+                despliegaDatos(infor);
+            }
+        };
+
+    }
+    function despliegaDatos(arreglo){
+        var cadena ="";
+        var i;
+        for(i=0; i < arreglo.length; i++){
+            cadena += arreglo[i].nombre + " " + arreglo[i].apellido+"<br>";
+        }
+        document.getElementById("salida").innerHTML = cadena;
+    }
+
+    </script>
+    <style>
+        #salida{overflow-y: scroll; background:red;height: 100px; width: 200px;}
+    </style>
+</head>
+<body>
+
+    <div id="salida">
+
+    </div>
+    <br>
+    <script>
+        var nosj = '{"nombre" : "Edu Campusano","direccion" : "Apoquindo 4199","ciudad" : "Santiago"}';
+        var ag = JSON.parse(nosj);
+        //document.getElementById("salida").innerHTML = "<p>"+ ag.nombre+"</p>" + "<p>"+ ag.direccion+"</p>" + "<p>"+ ag.ciudad+"</p>";
+    </script>
+    <button onclick="cargaBtn('nombre')">Todos</button>
+    <button onclick="cargaBtn('hombres')">Hombres</button>
+    <button onclick="cargaBtn('mujeres')">Mujeres</button>
+
+</body>
+</html>
